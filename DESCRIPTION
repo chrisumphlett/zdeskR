@@ -1,0 +1,34 @@
+Package: zdeskR
+Title: Connect to Your 'Zendesk' Data
+Version: 0.1.1
+Authors@R: 
+    c(person(given = "Chris",
+           family = "Umphlett",
+           role = c("aut", "cre"),
+           email = "christopher.umphlett@gmail.com"),
+	  person(given = "Avinash",
+           family = "Panigrahi",
+           role = "aut",
+           email = "avinashpanigrahi@outlook.com"))
+Description: Facilitates making a connection to the 
+  'Zendesk' API and executing various queries. You can use it to
+  get ticket data and ticket metrics. The 'Zendesk' documentation is 
+  available at <https://developer.zendesk.com/rest_api
+  /docs/support/introduction>. This package is not supported by 
+  'Zendesk' (owner of the software).
+URL: https://github.com/chrisumphlett/zdeskR
+BugReports: https://github.com/chrisumphlett/zdeskR/issues
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Imports:
+  dplyr (>= 1.0.0),
+  magrittr (>= 1.5),
+  jsonlite (>= 1.6.1),
+  purrr (>= 0.3.3),
+  httr (>= 1.4.1),
+  tidyselect (>= 1.0.0),
+  tidyr (>= 1.0.0),
+  tibble (>=  1.0.3),
+  plyr (>= 1.8.6)
+RoxygenNote: 7.1.1
