@@ -4,7 +4,7 @@
 \alias{get_tickets}
 \title{Get Zendesk Tickets}
 \usage{
-get_tickets(email_id, token, subdomain, start_time = 0, end_time = Sys.time())
+get_tickets(email_id, token, subdomain, start_time, end_time)
 }
 \arguments{
 \item{email_id}{Zendesk Email Id (username).}
@@ -13,13 +13,11 @@ get_tickets(email_id, token, subdomain, start_time = 0, end_time = Sys.time())
 
 \item{subdomain}{Your organization's Zendesk sub-domain.}
 
-\item{start_time}{Date or Datetime object to get all
-tickets modified after that date, by default all
-non-archived tickets will be returned.}
+\item{start_time}{String with a date or datetime to get all
+tickets modified after that date.}
 
-\item{end_time}{Date or Datetime object to get all
-tickets modified before that date, default is the current
-system time}
+\item{end_time}{String with a date or datetime to get all
+tickets modified before that date.}
 }
 \value{
 a Data Frame containing all tickets after the
@@ -44,6 +42,10 @@ starting on August 1 at 12 am, you would need to enter
 to accommodate the time zone difference, if desired. A
 date can be provided, it will retrieve results as of 12 am
 in the UTC time zone.
+
+Start and end times can be entered with or without the time
+component. End time cannot be in the future, but should work
+for values up to one minute prior to the current time.
 
 It's not a good practice to write down these authentication
 parameters in your code. There are various methods and

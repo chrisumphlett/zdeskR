@@ -8,28 +8,22 @@ zdeskR facilitates making a connection to the Zendesk API and executing various 
 The development version can be installed from GitHub: `devtools::install_github("chrisumphlett/zdeskR")`.
 
 ## Usage
-The API uses Zendesk email id and the token associated with it to make queries. Once you have this parameters then we create a username and password:
+The API uses Zendesk email id and the token associated with it to make queries. This id and token will be used in every API call along with a function specific URL to fetch the data.
 
-> username <- paste0(email_id, "/token")
-
-> password <- token
-
-This username and password will be used in every API call along with a function specific URL to fetch the data.
-
-The current version has several functions to make requests to the API
+The current version has several functions to make requests to the API:
 
 * `get_tickets()`. Returns all the tickets of your Zendesk organization between given start and end times.
-* `get_all_tickets_metrics()`. Returns all the ticket metrics in your Zendesk organization. Zendesk does not have an incremental version of this API endpoint; you cannot get the data starting after a certain date as of August 2020.
+* `get_all_tickets_metrics()`. Returns all the ticket metrics in your Zendesk organization. Zendesk does not have an incremental version of this API endpoint; you cannot get the data starting after a certain date as of March 2021.
 * `get_users()`. Returns all the users registered in your Zendesk organization. Can set a start page not equal to one to pull more recent users.
 * `get_custom_fields()`. Returns all the system and custom fields available for the tickets in your Zendesk organization. 
 
 ### Using get_custom_fields() along with get_tickets()
 
-`get_tickets` returns a data frame that contains the names of system fields and ids of custom fields which adds up an additional task to map those ids with their respective names.
+`get_tickets()` returns a data frame that contains the names of system fields and ids of custom fields which adds up an additional task to map those ids with their respective names.
 
 One way to do that is to manually create a dictionary having 'id' as keys and 'names' as values, but this approach becomes cumbersome when the size of dictionary increases.
 
-An alternative to this approach is to use `get_tickets` which returns a data frame containing system and all the custom field names. 
+An alternative to this approach is to use `get_custom_fields()` which returns a data frame containing system and all the custom field names. 
 Here is a code snippet that you can use for reference. 
 
 ```

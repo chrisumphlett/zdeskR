@@ -1,9 +1,9 @@
 ## Release summary
 
-* This is a minor release that added some new functions.
-* Added `get_custom_fields()` to pull system aswell as all the custom fields defined for a zendesk organizationm.
-* Added `get_users()` to pull all the details of the users registered in an zendesk organization.
-* Improved handling API request errors.
+* This is a maintenance release that improves two functions.
+* `get_tickets()` has an end time parameter, taking advantage of new functionality in the Zendesk API.
+* `get_users()` now has a start page parameter which can be used to avoid having to pull down all users and create the possibility of an incremental update workflow.
+
 
 ## Test environments
 
