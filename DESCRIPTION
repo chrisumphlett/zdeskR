@@ -26,8 +26,6 @@ Imports:
   jsonlite (>= 1.6.1),
   purrr (>= 0.3.3),
   httr (>= 1.4.1),
-  tidyselect (>= 1.0.0),
   tidyr (>= 1.0.0),
-  tibble (>=  1.0.3),
   plyr (>= 1.8.6)
 RoxygenNote: 7.1.1

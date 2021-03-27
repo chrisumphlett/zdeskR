@@ -1,3 +1,7 @@
+## Corrected release
+
+* I deleted some lines from DESCRIPTION that were not needed for this package and had caused notes in the CRAN checks.
+
 ## Release summary
 
 * This is a maintenance release that improves two functions.
