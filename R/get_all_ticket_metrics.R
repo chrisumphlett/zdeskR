@@ -33,37 +33,41 @@
 #' ticket_metrics <- get_all_ticket_metrics(email_id, token, subdomain)
 #' }
 
-get_all_ticket_metrics <-  function(email_id, token, subdomain){
+get_all_ticket_metrics <-  function(email_id, token, subdomain) {
 
   user <- paste0(email_id, "/token")
   pwd <- token
   subdomain <- subdomain
-  url_metrics <- paste0("https://", subdomain, ".zendesk.com/api/v2/ticket_metrics.json?page=")
+  url_metrics <- paste0("https://", subdomain,
+                        ".zendesk.com/api/v2/ticket_metrics.json?page=")
 
   #Stop Pagination when the parameter "next_page" is null.
   req_metrics <- list()
   stop_paging <- FALSE
   i <- 1
-  while(stop_paging == FALSE){
+  while (stop_paging == FALSE) {
     req_metrics[[i]] <-  httr::RETRY("GET",
-                                     url = paste0(url_metrics, i), 
+                                     url = paste0(url_metrics, i),
                                      httr::authenticate(user, pwd),
                                      times = 4,
                                      pause_min = 10,
                                      terminate_on = NULL,
                                      terminate_on_success = TRUE,
                                      pause_cap = 5)
-    if(is.null((jsonlite::fromJSON(httr::content(req_metrics[[i]], 'text')))$next_page)){
+    if (is.null((jsonlite::fromJSON(httr::content(req_metrics[[i]],
+                                                 "text")))$next_page)) {
       stop_paging <- TRUE
     }
     i <- i + 1
   }
 
-  build_data_frame <- function(c){
-    metrics <- as.data.frame((jsonlite::fromJSON(httr::content(req_metrics[[c]], "text"), flatten = TRUE))$ticket_metrics)
+  build_data_frame <- function(c) {
+    metrics <- as.data.frame((jsonlite::fromJSON(httr::content(req_metrics[[c]],
+                                      "text"), flatten = TRUE))$ticket_metrics)
   }
 
-  ticket_metrics_df <- purrr::map_dfr(1:length(req_metrics), build_data_frame)
+  ticket_metrics_df <- purrr::map_dfr(seq_len(length(req_metrics)),
+                                      build_data_frame)
 
   return(ticket_metrics_df)
 

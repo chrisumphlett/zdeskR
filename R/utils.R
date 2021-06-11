@@ -19,18 +19,20 @@
 #'
 #' @keywords internal
 
-to_unixtime <- function (x) {
-  orig <- x
+to_unixtime <- function(x) {
+
   if (is.character(x)) {
     x <- from_8601(x)
   }
-  # CHECKS if the date belongs to the POSIXt.Date class or not if yes than it converts to unix.
+  # CHECKS if the date belongs to the POSIXt.Date class or not
+  # if yes than it converts to unix.
   if (inherits(x, c("POSIXt", "Date"))) {
     x <- as.POSIXct(x)
   }
   x <- as.integer(x)
   if (is.na(x)) {
-    message("The start time is not in the right format. Fix and retry the request.")
+    message(paste0("The start time is not in the right format.",
+                   "Fix and retry the request."))
     stop()
   }
   return(x)
@@ -52,7 +54,7 @@ to_unixtime <- function (x) {
 #'
 #' @keywords internal
 
-from_8601 <- function (x) {
+from_8601 <- function(x) {
   # Parse ISO-8601-formatted date strings and return POSIXlt
   if (all(grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", na.omit(x)))) {
     pattern <- "%Y-%m-%d"

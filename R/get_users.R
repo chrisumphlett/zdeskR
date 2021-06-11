@@ -51,14 +51,15 @@ get_users <- function(email_id, token, subdomain, start_page = 1) {
   user <- paste0(email_id, "/token")
   pwd <- token
   subdomain <- subdomain
-  url_users <- paste0("https://", subdomain, ".zendesk.com/api/v2/users.json?role=end-user&page=")
+  url_users <- paste0("https://", subdomain,
+                      ".zendesk.com/api/v2/users.json?role=end-user&page=")
 
   #Stop Pagination when the parameter "next_page" is null.
   req_users <- list()
   stop_paging <- FALSE
   i <- 1
   page <- start_page
-  while(stop_paging == FALSE){
+  while (stop_paging == FALSE) {
     req_users[[i]] <-  httr::RETRY("GET",
                                      url = paste0(url_users, page),
                                      httr::authenticate(user, pwd),
@@ -67,18 +68,20 @@ get_users <- function(email_id, token, subdomain, start_page = 1) {
                                      terminate_on = NULL,
                                      terminate_on_success = TRUE,
                                      pause_cap = 5)
-    if(is.null((jsonlite::fromJSON(httr::content(req_users[[i]], 'text')))$next_page)){
+    if (is.null((jsonlite::fromJSON(httr::content(req_users[[i]],
+                                                  "text")))$next_page)) {
       stop_paging <- TRUE
     }
     i <- i + 1
     page <- page + 1
   }
 
-  build_data_frame <- function(c){
-    users <- as.data.frame((jsonlite::fromJSON(httr::content(req_users[[c]], "text"), flatten = TRUE))$users)
+  build_data_frame <- function(c) {
+    users <- as.data.frame((jsonlite::fromJSON(httr::content(req_users[[c]],
+                                              "text"), flatten = TRUE))$users)
   }
 
-  users_df <- purrr::map_dfr(1:length(req_users), build_data_frame)
+  users_df <- purrr::map_dfr(seq_len(length(req_users)), build_data_frame)
 
   return(users_df)
 }
