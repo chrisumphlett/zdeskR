@@ -20,7 +20,6 @@
 #' @keywords internal
 
 to_unixtime <- function(x) {
-
   if (is.character(x)) {
     x <- from_8601(x)
   }
@@ -31,8 +30,10 @@ to_unixtime <- function(x) {
   }
   x <- as.integer(x)
   if (is.na(x)) {
-    message(paste0("The start time is not in the right format.",
-                   "Fix and retry the request."))
+    message(paste0(
+      "The start time is not in the right format.",
+      "Fix and retry the request."
+    ))
     stop()
   }
   return(x)

@@ -53,12 +53,10 @@
 #'
 #' @examples \dontrun{
 #' all_tickets <- get_tickets(email_id, token, subdomain,
-#' start_time = "2021-01-31 00:00:00", end_time = "2021-01-31 23:59:59")
+#'   start_time = "2021-01-31 00:00:00", end_time = "2021-01-31 23:59:59"
+#' )
 #' }
-
-
 get_tickets <- function(email_id, token, subdomain, start_time, end_time) {
-
   user <- paste0(email_id, "/token")
   pwd <- token
   unix_start <- to_unixtime(as.POSIXct(start_time))
@@ -69,22 +67,28 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time) {
   i <- 1
 
   while (stop_paging == FALSE) {
-    url <- paste0("https://", subdomain,
-                  ".zendesk.com/api/v2/incremental/tickets.json?start_time=",
-                  unix_start)
+    url <- paste0(
+      "https://", subdomain,
+      ".zendesk.com/api/v2/incremental/tickets.json?start_time=",
+      unix_start
+    )
 
     request_ticket[[i]] <- httr::RETRY("GET",
-                                       url = url,
-                                       httr::authenticate(user, pwd),
-                                       times = 4,
-                                       pause_min = 10,
-                                       terminate_on = NULL,
-                                       terminate_on_success = TRUE,
-                                       pause_cap = 5)
-    unix_start <- (jsonlite::fromJSON(httr::content(request_ticket[[i]],
-                                          "text"), flatten = TRUE))$end_time
+      url = url,
+      httr::authenticate(user, pwd),
+      times = 4,
+      pause_min = 10,
+      terminate_on = NULL,
+      terminate_on_success = TRUE,
+      pause_cap = 5
+    )
+    unix_start <- (jsonlite::fromJSON(httr::content(
+      request_ticket[[i]],
+      "text"
+    ), flatten = TRUE))$end_time
     if ((jsonlite::fromJSON(httr::content(request_ticket[[i]], "text"),
-                           flatten = TRUE))$end_time >= unix_end) {
+      flatten = TRUE
+    ))$end_time >= unix_end) {
       stop_paging <- TRUE
     }
     i <- i + 1
@@ -92,7 +96,8 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time) {
 
   build_data_frame <- function(c) {
     tickets <- as.data.frame((jsonlite::fromJSON(httr::content(
-      request_ticket[[c]], "text"), flatten = TRUE))$tickets)
+      request_ticket[[c]], "text"
+    ), flatten = TRUE))$tickets)
   }
   tickets <- purrr::map_dfr(seq_len(length(request_ticket)), build_data_frame)
 
@@ -105,5 +110,4 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time) {
   ticket_final2 <- bind_cols(tickets, ticket_final)
 
   return(ticket_final2)
-
 }

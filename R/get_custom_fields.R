@@ -29,24 +29,24 @@
 #' @examples \dontrun{
 #' fields <- get_custom_fields(email_id, token, subdomain)
 #' }
-
-
 get_custom_fields <- function(email_id, token, subdomain) {
-
   user <- paste0(email_id, "/token")
   pwd <- token
   subdomain <- subdomain
-  url_fields <- paste0("https://", subdomain,
-                       ".zendesk.com/api/v2/ticket_fields.json")
+  url_fields <- paste0(
+    "https://", subdomain,
+    ".zendesk.com/api/v2/ticket_fields.json"
+  )
 
   field_req <- httr::RETRY("GET",
-                           url = url_fields,
-                           httr::authenticate(user, pwd),
-                           times = 4,
-                           pause_min = 10,
-                           terminate_on = NULL,
-                           terminate_on_success = TRUE,
-                           pause_cap = 5)
+    url = url_fields,
+    httr::authenticate(user, pwd),
+    times = 4,
+    pause_min = 10,
+    terminate_on = NULL,
+    terminate_on_success = TRUE,
+    pause_cap = 5
+  )
 
   field_content <- httr::content(field_req, "text")
   field_json <- jsonlite::fromJSON(field_content, flatten = TRUE)
