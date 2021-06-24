@@ -9,3 +9,4 @@ README.MD
 ^CRAN-RELEASE$
 Zendesk New Approach.R
 get_tickets OLD.R
+^\.github$
