@@ -1,5 +1,6 @@
 # zdeskR 0.1.1.9000
 
+* `styler` used to clean up formatting.
 
 # zdeskR 0.1.1
 
