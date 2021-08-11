@@ -37,6 +37,7 @@
 #' tickets modified after that date.
 #' @param end_time String with a date or datetime to get all
 #' tickets modified before that date.
+#' @param remove_cols Vector of column names to remove from the results.
 #'
 #' @return a Data Frame containing all tickets after the
 #' start time.
@@ -56,7 +57,8 @@
 #'   start_time = "2021-01-31 00:00:00", end_time = "2021-01-31 23:59:59"
 #' )
 #' }
-get_tickets <- function(email_id, token, subdomain, start_time, end_time) {
+get_tickets <- function(email_id, token, subdomain, start_time, end_time,
+                        remove_cols) {
   user <- paste0(email_id, "/token")
   pwd <- token
   unix_start <- to_unixtime(as.POSIXct(start_time))
@@ -103,7 +105,8 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time) {
 
   pivot_data_frame <- function(c) {
     pivot_df <- as.data.frame(tickets$custom_fields[c]) %>%
-      tidyr::pivot_wider(names_from = .data$id, values_from = .data$value)
+      tidyr::pivot_wider(names_from = .data$id, values_from = .data$value) %>%
+      select(-remove_cols)
   }
 
   ticket_final <- purrr::map_dfr(seq_len(nrow(tickets)), pivot_data_frame)
