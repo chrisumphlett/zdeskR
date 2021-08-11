@@ -58,7 +58,7 @@
 #' )
 #' }
 get_tickets <- function(email_id, token, subdomain, start_time, end_time,
-                        remove_cols) {
+                        remove_cols = NULL) {
   user <- paste0(email_id, "/token")
   pwd <- token
   unix_start <- to_unixtime(as.POSIXct(start_time))
