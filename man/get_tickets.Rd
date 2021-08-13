@@ -4,7 +4,14 @@
 \alias{get_tickets}
 \title{Get Zendesk Tickets}
 \usage{
-get_tickets(email_id, token, subdomain, start_time, end_time)
+get_tickets(
+  email_id,
+  token,
+  subdomain,
+  start_time,
+  end_time,
+  remove_cols = NULL
+)
 }
 \arguments{
 \item{email_id}{Zendesk Email Id (username).}
@@ -18,6 +25,8 @@ tickets modified after that date.}
 
 \item{end_time}{String with a date or datetime to get all
 tickets modified before that date.}
+
+\item{remove_cols}{Vector of column names to remove from the results.}
 }
 \value{
 a Data Frame containing all tickets after the
@@ -51,11 +60,17 @@ It's not a good practice to write down these authentication
 parameters in your code. There are various methods and
 packages available that are more secure; this package
 doesn't require you to use any one in particular.
+
+The remove_cols parameter allows the removal of custom fields causing errors.
+Errors occurred when a field was sometimes blank and assigned a logical type
+and then appended to non-blank, non-logical inside of purrr::map_dfr.
+See issue #1 on GH.
 }
 \examples{
 \dontrun{
 all_tickets <- get_tickets(email_id, token, subdomain,
-start_time = "2021-01-31 00:00:00", end_time = "2021-01-31 23:59:59")
+  start_time = "2021-01-31 00:00:00", end_time = "2021-01-31 23:59:59"
+)
 }
 }
 \references{

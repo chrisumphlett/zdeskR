@@ -27,6 +27,11 @@
 #' packages available that are more secure; this package
 #' doesn't require you to use any one in particular.
 #'
+#' The remove_cols parameter allows the removal of custom fields causing errors.
+#' Errors occurred when a field was sometimes blank and assigned a logical type
+#' and then appended to non-blank, non-logical inside of purrr::map_dfr.
+#' See issue #1 on GH.
+#'
 #' @references \url{https://developer.zendesk.com/rest_api
 #' /docs/support/incremental_export#start_time}
 #'
