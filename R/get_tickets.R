@@ -66,8 +66,8 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time,
                         remove_cols = NULL) {
   user <- paste0(email_id, "/token")
   pwd <- token
-  unix_start <- to_unixtime(format(as.POSIXct(start_time), "%Y-%m-%d %H:%M:%S"))
-  unix_end <- to_unixtime(format(as.POSIXct(end_time), "%Y-%m-%d %H:%M:%S"))
+  unix_start <- to_unixtime(as.POSIXct(start_time))
+  unix_end <- to_unixtime(as.POSIXct(end_time))
 
   request_ticket <- list()
   stop_paging <- FALSE
@@ -89,6 +89,7 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time,
       terminate_on_success = TRUE,
       pause_cap = 5
     )
+    message(paste0(i, " - a"))
     unix_start <- (jsonlite::fromJSON(httr::content(
       request_ticket[[i]],
       "text"
@@ -98,6 +99,7 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time,
     ))$end_time >= unix_end) {
       stop_paging <- TRUE
     }
+    message(paste0(i, " - b"))
     i <- i + 1
   }
 
