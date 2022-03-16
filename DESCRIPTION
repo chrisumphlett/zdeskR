@@ -1,6 +1,6 @@
 Package: zdeskR
 Title: Connect to Your 'Zendesk' Data
-Version: zdeskR 0.2.0.9999
+Version: 0.2.0.9999
 Authors@R: 
     c(person(given = "Chris",
            family = "Umphlett",
