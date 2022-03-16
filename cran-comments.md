@@ -1,12 +1,8 @@
-## Corrected release
-
-* I deleted some lines from DESCRIPTION that were not needed for this package and had caused notes in the CRAN checks.
-
 ## Release summary
 
-* This is a maintenance release that improves two functions.
-* `get_tickets()` has an end time parameter, taking advantage of new functionality in the Zendesk API.
-* `get_users()` now has a start page parameter which can be used to avoid having to pull down all users and create the possibility of an incremental update workflow.
+* This is a minor release that improves one function and does some cleanup.
+* `styler` used to clean up formatting.
+* `remove_cols` parameter added to `get_tickets` so that custom fields causing errors can be removed. Errors occurred when a field was sometimes blank and assigned a logical type were appended to non-blank, non-logical inside of a `purrr::map_dfr`. See issue #1 on GH.
 
 
 ## Test environments
@@ -15,8 +11,8 @@
 * Tested on R-devel with devtools::check_win_devel()
 * Testing against multiple Linux platforms with devtools::check_rhub()
 
+
 ## R CMD check results
 0 errors √ | 0 warning x | 0 notes √
 
 ## No reverse dependencies
-

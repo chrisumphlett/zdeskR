@@ -1,4 +1,4 @@
-# zdeskR 0.1.1.9000
+# zdeskR 0.2.0
 
 * `styler` used to clean up formatting.
 * `remove_cols` parameter added to `get_tickets` so that custom fields causing errors can be removed. Errors occurred when a field was sometimes blank and assigned a logical type were appended to non-blank, non-logical inside of a `purrr::map_dfr`. See issue #1 on GH.
