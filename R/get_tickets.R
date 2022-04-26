@@ -40,8 +40,6 @@
 #' @param subdomain Your organization's Zendesk sub-domain.
 #' @param start_time String with a date or datetime to get all
 #' tickets modified after that date.
-#' @param end_time String with a date or datetime to get all
-#' tickets modified before that date.
 #' @param remove_cols Vector of column names to remove from the results.
 #'
 #' @return a Data Frame containing all tickets after the
@@ -62,12 +60,11 @@
 #'   start_time = "2021-01-31 00:00:00", end_time = "2021-01-31 23:59:59"
 #' )
 #' }
-get_tickets <- function(email_id, token, subdomain, start_time, end_time,
+get_tickets <- function(email_id, token, subdomain, start_time,
                         remove_cols = NULL) {
   user <- paste0(email_id, "/token")
   pwd <- token
   unix_start <- to_unixtime(as.POSIXct(start_time))
-  unix_end <- to_unixtime(as.POSIXct(end_time))
 
   request_ticket <- list()
   stop_paging <- FALSE
@@ -96,7 +93,7 @@ get_tickets <- function(email_id, token, subdomain, start_time, end_time,
     ), flatten = TRUE))$end_time
     if ((jsonlite::fromJSON(httr::content(request_ticket[[i]], "text"),
       flatten = TRUE
-    ))$end_time >= unix_end) {
+    ))$end_of_stream == TRUE) {
       stop_paging <- TRUE
     }
     message(paste0(i, " - b"))

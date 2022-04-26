@@ -30,7 +30,9 @@
 #' @param email_id Zendesk Email Id (username).
 #' @param token Zendesk API token.
 #' @param subdomain Your organization's Zendesk sub-domain.
-#' @param start_page First page of results to return, default is 1.
+#' @param start_time String with a date or datetime to get all
+#' tickets modified after that date.
+#' @param user_role User role, one of "all", "end-user", "agent", or "admin".
 #'
 #' @return Data Frame with user details
 #'
@@ -45,38 +47,42 @@
 #' @examples \dontrun{
 #' users <- get_users(email_id, token, subdomain)
 #' }
-get_users <- function(email_id, token, subdomain, start_page = 1) {
+get_users <- function(email_id, token, subdomain,
+                      start_time, user_role = "all") {
   user <- paste0(email_id, "/token")
   pwd <- token
-  subdomain <- subdomain
-  url_users <- paste0(
-    "https://", subdomain,
-    ".zendesk.com/api/v2/users.json?role=end-user&page="
-  )
+  unix_start <- to_unixtime(as.POSIXct(start_time))
 
-  # Stop Pagination when the parameter "next_page" is null.
   req_users <- list()
   stop_paging <- FALSE
   i <- 1
-  page <- start_page
+
   while (stop_paging == FALSE) {
-    req_users[[i]] <- httr::RETRY("GET",
-      url = paste0(url_users, page),
-      httr::authenticate(user, pwd),
-      times = 4,
-      pause_min = 10,
-      terminate_on = NULL,
-      terminate_on_success = TRUE,
-      pause_cap = 5
+    url_users <- paste0(
+      "https://", subdomain,
+      ".zendesk.com/api/v2/incremental/users.json?start_time=", unix_start
     )
-    if (is.null((jsonlite::fromJSON(httr::content(
+
+    req_users[[i]] <- httr::RETRY("GET",
+                                       url = url_users,
+                                       httr::authenticate(user, pwd),
+                                       times = 4,
+                                       pause_min = 10,
+                                       terminate_on = NULL,
+                                       terminate_on_success = TRUE,
+                                       pause_cap = 5
+    )
+    unix_start <- (jsonlite::fromJSON(httr::content(
       req_users[[i]],
       "text"
-    )))$next_page)) {
+    ), flatten = TRUE))$end_time
+
+    if ((jsonlite::fromJSON(httr::content(req_users[[i]], "text"),
+                            flatten = TRUE
+    ))$end_of_stream == TRUE) {
       stop_paging <- TRUE
     }
     i <- i + 1
-    page <- page + 1
   }
 
   build_data_frame <- function(c) {
@@ -86,7 +92,12 @@ get_users <- function(email_id, token, subdomain, start_page = 1) {
     ), flatten = TRUE))$users)
   }
 
-  users_df <- purrr::map_dfr(seq_len(length(req_users)), build_data_frame)
-
+  if(user_role == "all") {
+    users_df <- purrr::map_dfr(seq_len(length(req_users)), build_data_frame)
+  } else {
+  users_df <- purrr::map_dfr(seq_len(length(req_users)), build_data_frame) %>%
+    filter(role == user_role)
+  }
   return(users_df)
 }
+
