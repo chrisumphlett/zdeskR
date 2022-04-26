@@ -4,7 +4,7 @@
 \alias{get_users}
 \title{Returns All Available Zendesk Users.}
 \usage{
-get_users(email_id, token, subdomain, start_page = 1)
+get_users(email_id, token, subdomain, start_time, user_role = "all")
 }
 \arguments{
 \item{email_id}{Zendesk Email Id (username).}
@@ -13,7 +13,10 @@ get_users(email_id, token, subdomain, start_page = 1)
 
 \item{subdomain}{Your organization's Zendesk sub-domain.}
 
-\item{start_page}{First page of results to return, default is 1.}
+\item{start_time}{String with a date or datetime to get all
+tickets modified after that date.}
+
+\item{user_role}{User role, one of "all", "end-user", "agent", or "admin".}
 }
 \value{
 Data Frame with user details

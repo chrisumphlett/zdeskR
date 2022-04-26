@@ -86,7 +86,16 @@ get_users <- function(email_id, token, subdomain, start_page = 1) {
     ), flatten = TRUE))$users)
   }
 
+<<<<<<< Updated upstream
   users_df <- purrr::map_dfr(seq_len(length(req_users)), build_data_frame)
 
+=======
+  if(user_role == "all") {
+    users_df <- purrr::map_dfr(seq_len(length(req_users)), build_data_frame)
+  } else {
+  users_df <- purrr::map_dfr(seq_len(length(req_users)), build_data_frame) %>%
+    filter(.data$role == user_role)
+  }
+>>>>>>> Stashed changes
   return(users_df)
 }

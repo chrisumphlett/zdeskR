@@ -4,14 +4,7 @@
 \alias{get_tickets}
 \title{Get Zendesk Tickets}
 \usage{
-get_tickets(
-  email_id,
-  token,
-  subdomain,
-  start_time,
-  end_time,
-  remove_cols = NULL
-)
+get_tickets(email_id, token, subdomain, start_time, remove_cols = NULL)
 }
 \arguments{
 \item{email_id}{Zendesk Email Id (username).}
@@ -22,9 +15,6 @@ get_tickets(
 
 \item{start_time}{String with a date or datetime to get all
 tickets modified after that date.}
-
-\item{end_time}{String with a date or datetime to get all
-tickets modified before that date.}
 
 \item{remove_cols}{Vector of column names to remove from the results.}
 }

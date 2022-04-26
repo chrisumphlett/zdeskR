@@ -1,6 +1,6 @@
 Package: zdeskR
 Title: Connect to Your 'Zendesk' Data
-Version: 0.2.0.9999
+Version: 0.3.0
 Authors@R: 
     c(person(given = "Chris",
            family = "Umphlett",
@@ -12,7 +12,7 @@ Authors@R:
            email = "avinashpanigrahi@outlook.com"))
 Description: Facilitates making a connection to the 
   'Zendesk' API and executing various queries. You can use it to
-  get ticket data and ticket metrics. The 'Zendesk' documentation is 
+  get ticket, ticket metrics, and user data. The 'Zendesk' documentation is 
   available at <https://developer.zendesk.com/rest_api
   /docs/support/introduction>. This package is not supported by 
   'Zendesk' (owner of the software).
