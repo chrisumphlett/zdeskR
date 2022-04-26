@@ -86,7 +86,6 @@ get_tickets <- function(email_id, token, subdomain, start_time,
                                        terminate_on_success = TRUE,
                                        pause_cap = 5
     )
-    message(paste0(i, " - a"))
     unix_start <- (jsonlite::fromJSON(httr::content(
       request_ticket[[i]],
       "text"
@@ -96,7 +95,6 @@ get_tickets <- function(email_id, token, subdomain, start_time,
     ))$end_of_stream == TRUE) {
       stop_paging <- TRUE
     }
-    message(paste0(i, " - b"))
     i <- i + 1
   }
 
