@@ -3,6 +3,7 @@
 * `get_users()` changed to use Zendesk's incremental export endpoint. Instead of pagination with the `page=` parameter there is now a `start_time` parameter. This is a breaking change-- previous function calls with the page # will not work, and the `start_time` value must be given.
 * `get_users()` now has a parameter for the user role. This is used to filter the api results before returning a data frame.
 * `get_tickets()` was updated to use better logic for the stopping value for pagination.
+* `get_tickets()` could have an error when combining custom field values of different types. These are now converted into a character column first before `purrr::map_dfr()` attempts to `bind_rows()`.
 
 # zdeskR 0.2.0
 
