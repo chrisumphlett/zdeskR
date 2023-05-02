@@ -1,3 +1,7 @@
+# zdeskR 0.3.0.9000
+
+* dev version
+
 # zdeskR 0.3.0
 
 * `get_users()` changed to use Zendesk's incremental export endpoint. Instead of pagination with the `page=` parameter there is now a `start_time` parameter. This is a breaking change-- previous function calls with the page # will not work, and the `start_time` value must be given.
