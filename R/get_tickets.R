@@ -107,6 +107,7 @@ get_tickets <- function(email_id, token, subdomain, start_time,
 
   pivot_data_frame <- function(c) {
     pivot_df <- as.data.frame(tickets$custom_fields[c]) %>%
+      mutate(across(.cols = .data$value, as.character)) %>%
       tidyr::pivot_wider(names_from = .data$id, values_from = .data$value) %>%
       select(-remove_cols)
   }
