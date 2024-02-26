@@ -1,7 +1,6 @@
 ## Release summary
 
-* This is a minor release that improves one function and does some cleanup.
-* There is a breaking change on `get_users` but it is worth it, by significantly reducing the number of api calls required since an incremental export approach can be used.
+* This is a minor release that introduces a new function, `get_tickets_comments()`.
 
 
 ## Test environments
