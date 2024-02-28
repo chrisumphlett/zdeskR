@@ -1,5 +1,5 @@
 #' Get tickets comments/replies
-
+#'
 #' This function takes your email ID, authentication token, sub-domain, 
 #' and specific ticket ID to fetch all comments/replies to this wanted ticket. 
 #' By default, this function works for just one ticket at once; if you need 
@@ -14,7 +14,37 @@
 #' the result is "Yes"; if not, it is "No". The function does not provide the attachments.
 #' If you need sensitive data (location, lat, long, IP address...), you must set sentitive_data = T. 
 #' Due to legal reasons, it is not recommended to store sensitive data. 
-
+#' 
+#' @references \url{https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#request-comments}
+#'
+#' @param email_id Zendesk Email ID (username).
+#' @param token Zendesk API token.
+#' @param subdomain Your organization's Zendesk sub-domain.
+#' @param ticket_id The ticket ID number. A numeric value.
+#' @param add_cols Vector of column names to add at the results.
+#' @param sensitive_data Logical value (TRUE or FALSE). If TRUE, all metadata variables will be added to the results. 
+#' If FALSE, the default, the sensitive data will be not added.
+#'
+#' @return a Data Frame containing all comments/replies of the single ticket ID selected.
+#'
+#' @import dplyr
+#' @import jsonlite
+#' @import httr
+#' @importFrom magrittr "%>%"
+#' @importFrom jsonlite "fromJSON"
+#' @importFrom httr "content"
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#' ## Extracting comments with default columns and without sensitive data
+#' comments_ticket_id <- get_tickets_comments(email_id, token, subdomain, ticket_id,
+#' add_cols= NULL, sensitive_data=F)
+#' 
+#'## Extracting comments with additional columns and sensitive data
+#' comments_ticket_id <- get_tickets_comments(email_id, token, subdomain, ticket_id,
+#' add_cols= c("html_body", "attachments"), sensitive_data=T)
+#' }
 
 # function to extract tickets comments/replies
 get_tickets_comments <- function(email_id, token, subdomain, ticket_id,
@@ -47,6 +77,6 @@ get_tickets_comments <- function(email_id, token, subdomain, ticket_id,
   
  
   comments_extracted2 <- as.data.frame(parsed_response$comments) %>% 
-  mutate(have_attachments = ifelse(sapply(attachments, function(list_element) length(list_element)==0), "No", "Yes")) %>%
+  mutate(have_attachments = ifelse(sapply("attachments", function(list_element) length(list_element)==0), "No", "Yes")) %>%
   select(all_of(columns_final))
 }
