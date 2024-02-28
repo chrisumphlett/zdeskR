@@ -27,5 +27,6 @@ Imports:
   purrr (>= 0.3.3),
   httr (>= 1.4.1),
   tidyr (>= 1.0.0),
-  plyr (>= 1.8.6)
-RoxygenNote: 7.1.2
+  plyr (>= 1.8.6),
+  tidyselect (>= 1.2.0)
+RoxygenNote: 7.2.3
