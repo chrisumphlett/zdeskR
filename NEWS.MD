@@ -1,3 +1,7 @@
+# zdeskR 0.4.0.9000
+
+* development version
+
 # zdeskR 0.4.0
 
 * added `get_tickets_comments()` to fetch the comments in a conversation on a ticket (#5, thanks to @k-dutra for making the request and creating the PR).
