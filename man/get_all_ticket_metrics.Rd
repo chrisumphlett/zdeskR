@@ -18,10 +18,10 @@ Data Frame with metrics for all tickets
 }
 \description{
 This function takes your Email Id, authentication token,
-sub-domain and parse all the tickets and its corresponding
+and sub-domain and parses all the tickets and its corresponding
 metrics in a list. Since each iteration only returns 100
 tickets at a time you must run the loop until the
-"next_page" parameter is equal to null.
+"has_more" parameter is equal to FALSE.
 }
 \details{
 Its not a good practice to write down these authentication

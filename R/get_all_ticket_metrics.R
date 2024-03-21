@@ -1,10 +1,10 @@
 #' Get Metrics on All Zendesk Tickets
 #'
 #' This function takes your Email Id, authentication token,
-#' sub-domain and parse all the tickets and its corresponding
+#' and sub-domain and parses all the tickets and its corresponding
 #' metrics in a list. Since each iteration only returns 100
 #' tickets at a time you must run the loop until the
-#' "next_page" parameter is equal to null.
+#' "has_more" parameter is equal to FALSE.
 #'
 #' Its not a good practice to write down these authentication
 #' parameters in your code. There are various methods and
@@ -36,9 +36,11 @@ get_all_ticket_metrics <- function(email_id, token, subdomain) {
   user <- paste0(email_id, "/token")
   pwd <- token
   subdomain <- subdomain
+  after_cursor <- ""
   url_metrics <- paste0(
     "https://", subdomain,
-    ".zendesk.com/api/v2/ticket_metrics.json?page="
+    ".zendesk.com/api/v2/ticket_metrics.json?page[after]=",
+    after_cursor, "&page[size]=100"
   )
 
   # Stop Pagination when the parameter "next_page" is null.
@@ -47,7 +49,7 @@ get_all_ticket_metrics <- function(email_id, token, subdomain) {
   i <- 1
   while (stop_paging == FALSE) {
     req_metrics[[i]] <- httr::RETRY("GET",
-      url = paste0(url_metrics, i),
+      url = paste0(url_metrics),
       httr::authenticate(user, pwd),
       times = 4,
       pause_min = 10,
@@ -55,10 +57,13 @@ get_all_ticket_metrics <- function(email_id, token, subdomain) {
       terminate_on_success = TRUE,
       pause_cap = 5
     )
-    if (is.null((jsonlite::fromJSON(httr::content(
-      req_metrics[[i]],
-      "text"
-    )))$next_page)) {
+    if (jsonlite::fromJSON(
+        httr::content(
+          req_metrics[[i]],
+          "text"
+        ),
+        flatten = TRUE)$meta$has_more == FALSE)
+    {
       stop_paging <- TRUE
     }
     i <- i + 1
