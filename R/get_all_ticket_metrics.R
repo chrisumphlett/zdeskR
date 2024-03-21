@@ -66,7 +66,6 @@ get_all_ticket_metrics <- function(email_id, token, subdomain) {
     {
       stop_paging <- TRUE
     }
-    # stop_paging <- TRUE
     i <- i + 1
   }
 
