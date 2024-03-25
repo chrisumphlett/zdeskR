@@ -37,17 +37,18 @@ get_all_ticket_metrics <- function(email_id, token, subdomain) {
   pwd <- token
   subdomain <- subdomain
   after_cursor <- ""
-  url_metrics <- paste0(
-    "https://", subdomain,
-    ".zendesk.com/api/v2/ticket_metrics.json?page[after]=",
-    after_cursor, "&page[size]=100"
-  )
 
   # Stop Pagination when the parameter "next_page" is null.
   req_metrics <- list()
   stop_paging <- FALSE
   i <- 1
   while (stop_paging == FALSE) {
+    url_metrics <- paste0(
+      "https://", subdomain,
+      ".zendesk.com/api/v2/ticket_metrics.json?page[after]=",
+      after_cursor, "&page[size]=100"
+    )
+
     req_metrics[[i]] <- httr::RETRY("GET",
       url = paste0(url_metrics),
       httr::authenticate(user, pwd),
@@ -66,6 +67,10 @@ get_all_ticket_metrics <- function(email_id, token, subdomain) {
     {
       stop_paging <- TRUE
     }
+    after_cursor <- jsonlite::fromJSON(
+      httr::content(req_metrics[[i]], "text"),
+      flatten = TRUE
+    )$meta$after_cursor
     i <- i + 1
   }
 
