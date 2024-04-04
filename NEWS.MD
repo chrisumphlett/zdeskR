@@ -1,9 +1,13 @@
+# zdeskR 0.4.1.9000
+
+* Development version
+
 # zdeskR 0.4.1
 
 * This is a maintenance release that updates `get_all_ticket_metrics()`. Zendesk
 instructed developers to switch from offset-based pagination to cursor-based
 pagination. This is the only function that uses OBP. The other functions either
-do not use pagination or use time-based pagination.
+do not use pagination, or, use time-based pagination.
 
 # zdeskR 0.4.0
 
