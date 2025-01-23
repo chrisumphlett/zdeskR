@@ -45,7 +45,7 @@
 #' @export
 #'
 #' @examples \dontrun{
-#' users <- get_users(email_id, token, subdomain)
+#' users <- get_users(email_id, token, subdomain, start_time = "2025-01-01 12:00:00")
 #' }
 get_users <- function(email_id, token, subdomain,
                       start_time, user_role = "all") {

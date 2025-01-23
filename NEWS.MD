@@ -1,6 +1,6 @@
-# zdeskR 0.4.1.9000
+# zdeskR 0.4.2
 
-* Development version
+* Fixed examples in `get_tickets()` and `get_users` to reflect changes made previously in the function parameters for incremental querying. Addresses issue #8 brought up by @k-dutra.
 
 # zdeskR 0.4.1
 

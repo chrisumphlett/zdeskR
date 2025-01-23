@@ -1,6 +1,6 @@
 Package: zdeskR
 Title: Connect to Your 'Zendesk' Data
-Version: 0.4.1.9000
+Version: 0.4.2
 Authors@R: 
     c(person(given = "Chris",
            family = "Umphlett",
@@ -29,4 +29,4 @@ Imports:
   tidyr (>= 1.0.0),
   plyr (>= 1.8.6),
   tidyselect (>= 1.2.0)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2

@@ -57,7 +57,7 @@
 #'
 #' @examples \dontrun{
 #' all_tickets <- get_tickets(email_id, token, subdomain,
-#'   start_time = "2021-01-31 00:00:00", end_time = "2021-01-31 23:59:59"
+#'   start_time = "2021-01-31 00:00:00"
 #' )
 #' }
 get_tickets <- function(email_id, token, subdomain, start_time,
