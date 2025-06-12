@@ -1,10 +1,10 @@
 ## Release summary
 
-* This is a maintenance release that updates some examples.
+* This is a minor release that adds two new functions.
 
 ## Test environments
 
-* Developed on and tested with Windows 10, R 4.4.1
+* Developed on and tested with Windows 11, R 4.4.1
 * Tested on R-devel with devtools::check_win_devel().
 * Testing against linux and macos platforms with rhub::rhub_check().
 

@@ -35,7 +35,7 @@ it uses the pointer to fetch the subsequent pages.
 The start time parameter should be in 'UTC' format as
 Zendesk uses the 'UTC' time zone when retrieving tickets
 after the start time. For example, the US Eastern Time Zone
-is currently four hours being UTC. If one wanted to get tickets
+is currently four hours behind UTC. If one wanted to get tickets
 starting on August 1 at 12 am, you would need to enter
 "2020-08-01 04:00:00". The user must do proper adjustment
 to accommodate the time zone difference, if desired. A
