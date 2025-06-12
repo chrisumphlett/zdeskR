@@ -1,6 +1,9 @@
-# zdeskR 0.4.2.9000
+# zdeskR 0.5.0
 
 * Development version.
+* Corrected typo in `get_tickets()` documentation.
+* Created `get_satisfaction_ratings()` to pull satisfaction ratings for tickets from the legacy CSAT endpoint.
+* Created `ticket_search()` to search for tickets using the Zendesk search API.
 
 # zdeskR 0.4.2
 
