@@ -30,8 +30,8 @@
 #' @export
 #'
 #' @examples \dontrun{
-#' users <- get_users(email_id, token, subdomain,
-#' start_time = "2025-01-01 12:00:00")
+#' search_results <- ticket_search(email_id, token, subdomain,
+#' query = "query=satisfaction:goodwithcomment updated>24hours")
 #' }
 ticket_search <- function(email_id, token, subdomain, query) {
   user <- paste0(email_id, "/token")

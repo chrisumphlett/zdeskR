@@ -1,6 +1,7 @@
-# zdeskR 0.5.0.9000
+# zdeskR 0.6.0
 
-* Development version
+* Corrected example for `ticket_search()`.
+* Created `get_ticket_audits()` to fetch the audits for a ticket. This is useful for seeing the history of changes made to a ticket.
 
 # zdeskR 0.5.0
 

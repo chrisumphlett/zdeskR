@@ -19,6 +19,7 @@ The current version has several functions to make requests to the API:
 * `get_tickets_comments()`. Returns all comments in a conversation for a given ticket id.
 * `get_satisfaction_ratings()`. Returns answers to satisfaction surveys (or identifies those who didn't take it, or weren't offered it) for tickets in your Zendesk organization. This is the legacy CSAT endpoint (as of 2025-06-11) not the new surveys endpoint.
 * `ticket_search()`. Returns tickets that match a search query using the Zendesk search API. Zendesk has its own query syntax for this, which is documented in the [Zendesk documentation](https://developer.zendesk.com/documentation/api-basics/working-with-data/searching-with-the-zendesk-api/). Using an LLM can be helpful to write these queries. The function handles URL encoding.
+* `get_ticket_audits()`. Returns all the audits for a given ticket id. Audits are the history of changes made to a ticket.
 
 ### Using get_custom_fields() along with get_tickets()
 

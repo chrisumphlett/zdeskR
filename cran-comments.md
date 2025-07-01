@@ -1,6 +1,7 @@
 ## Release summary
 
-* This is a minor release that adds two new functions.
+* This is a minor release that fixes an example that had the wrong code and 
+adds a new function, `get_ticket_audits()`.
 
 ## Test environments
 
