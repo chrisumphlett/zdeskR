@@ -1,3 +1,7 @@
+# zdeskR 0.6.0.9000
+
+* dev version
+
 # zdeskR 0.6.0
 
 * Corrected example for `ticket_search()`.
